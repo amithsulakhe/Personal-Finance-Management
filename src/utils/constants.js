@@ -1,0 +1,1 @@
+export const COMMON_INPUT_CSS='bg-gray-300 placeholder:text-black px-4 py-1 shadow-md outline-none'
