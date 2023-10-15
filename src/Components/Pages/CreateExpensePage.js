@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../Firebase/firebase';
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { COMMON_INPUT_CSS } from '../../utils/constants';
 const CreateExpensePage = ({ showExpensePage, setShowExpensePage, editPageId }) => {
   const day = new Date()
   const time = String(day.getHours()) + ":" + String(day.getMinutes()) + ":" + String(day.getSeconds())
   const [dateTime] = useState(day.getFullYear() + "/" + day.getMonth() + "/" + day.getDate() + "/" + time)
   console.log(String(day.getHours()));
- //fotm data
+ 
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -62,34 +62,36 @@ const CreateExpensePage = ({ showExpensePage, setShowExpensePage, editPageId }) 
   };
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const docRef = doc(db, 'formData', editPageId);
-    //     const docSnap = await getDoc(docRef);
-
-    //     if (docSnap.exists()) {
-    //       setFormData(docSnap.data().formData);
-    //     } else {
-    //       console.log('No such document!');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error getting document:', error);
-    //   }
-    // };
-
-    // if (editPageId && showExpensePage.editPage) {
-    //   fetchData();
-    // } else {
-    //   setFormData({
-    //     name: '',
-    //     description: '',
-    //     date: '',
-    //     amount: '',
-    //     option: 'Health',
-    //     dateAndTime: dateTime // Reset option to default
-    //   });
-    // }
+    const fetchData = async () => {
+      try {
+        const docRef = doc(db, 'formData', editPageId);
+        const docSnap = await getDoc(docRef);
+  
+        if (docSnap.exists()) {
+          setFormData(docSnap.data().formData);
+        } else {
+          console.log('No such document!');
+        }
+      } catch (error) {
+        console.error('Error getting document:', error);
+      }
+    };
+  
+    if (editPageId && showExpensePage.editPage) {
+      fetchData();
+    } else {
+      setFormData({
+        name: '',
+        description: '',
+        date: '',
+        amount: '',
+        option: 'Health',
+        dateAndTime: dateTime // Reset option to default
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
 
   return (
     <div className="w-full h-[100vh] grid place-items-center absolute top-0">
