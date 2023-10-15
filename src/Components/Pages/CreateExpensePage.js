@@ -7,7 +7,7 @@ const CreateExpensePage = ({ showExpensePage, setShowExpensePage, editPageId }) 
   const time = String(day.getHours()) + ":" + String(day.getMinutes()) + ":" + String(day.getSeconds())
   const [dateTime] = useState(day.getFullYear() + "/" + day.getMonth() + "/" + day.getDate() + "/" + time)
   console.log(String(day.getHours()));
- 
+ //fotm data
   const [formData, setFormData] = useState({
     name: '',
     description: '',
