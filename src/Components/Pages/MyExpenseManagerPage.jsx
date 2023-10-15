@@ -76,18 +76,18 @@ const MyExpenseManagerPage = () => {
   }, []); // eslint-disable-next-line
   useEffect(() => {
     const timer = setTimeout(() => {
-      const newFilterData = todos.filter((data) => {
-        console.log(data?.formData)
-        return (
-          data?.formData?.name.toLowerCase().includes(filterData.byName.toLowerCase()) &&
-          data?.formData?.date.toLowerCase().includes(filterData.byDate.toLowerCase())
-        );
+      setTodos((prevTodos) => {
+        return prevTodos.filter((data) => {
+          console.log(data?.formData);
+          return (
+            data?.formData?.name.toLowerCase().includes(filterData.byName.toLowerCase()) &&
+            data?.formData?.date.toLowerCase().includes(filterData.byDate.toLowerCase())
+          );
+        });
       });
-      setTodos(newFilterData);
     }, 250);
     return () => clearTimeout(timer);
   }, [filterData]);
-
 
   return (
     <>
